@@ -1,0 +1,9 @@
+<?php
+session_start();
+unset($_SESSION['admin']);
+unset($_SESSION['e_id']);
+unset($_SESSION['e_fname']);
+unset($_SESSION['e_lname']);
+unset($_SESSION['username']);
+header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/login.php");
+?>
