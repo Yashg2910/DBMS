@@ -2,7 +2,7 @@
 <?php startblock('body') ?>
 <?php
 
-$sql = "SELECT D.dept_id,D.dept_name, E.e_fname, E.e_lname FROM department D,employee E where D.dept_manager= E.e_id";
+$sql = "SELECT D.dept_id,D.dept_name, M.m_fname, M.m_lname FROM department D,manager M where D.dept_manager= M.m_id";
 $result = mysqli_query($conn, $sql);
 
 ?>
@@ -34,7 +34,7 @@ $result = mysqli_query($conn, $sql);
             </span>
           </div>
           <div class="card-content">
-            <p>Head- <?php echo $row['e_fname']." ".$row['e_lname']; ?></p>
+            <p>Head- <?php echo $row['m_fname']." ".$row['m_lname']; ?></p>
           </div>
         </div>
         </a>

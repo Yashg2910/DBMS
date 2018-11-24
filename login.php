@@ -54,6 +54,7 @@ break;
 
   <!-- CSS  -->
   <link href="css/login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
 <div id="fullscreen_bg" class="fullscreen_bg"/>
@@ -61,7 +62,8 @@ break;
 <div class="container">
 
   <form class="form-signin" action="login.php" method="post">
-    <h1 class="form-signin-heading text-muted">Sign In</h1>
+    <h1>
+    <h1 class="form-signin-heading">Sign In</h1>
     <input type="email" class="form-control" placeholder="Email address" required="" autofocus="" name="username">
     <input type="password" class="form-control" placeholder="password" required="" name="password">
     <p><select name="role">

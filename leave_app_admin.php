@@ -21,7 +21,7 @@ $resultleave= mysqli_query($conn,$sqlleave);
   <div class="section no-pad-bot" id="index-banner">
     <div class="container" id="add_emp_container">
       <div class="container">
-        <h1 class="header center orange-text">Leaves Applied<span class="large badge"></span></h1>
+        <h1 class="header center orange-text">Leave Applications<span class="large badge"></span></h1>
       </div>
 
       <table class="highlight">

@@ -59,9 +59,10 @@ exit();
       <a href="#email"><span class="white-text email">admin</span></a>
     </div></li>
     <li><a class="waves-effect" href="home_admin.php"><i class="material-icons">person</i>Home</a></li>
-
     <li><a class="waves-effect" href="departments_admin.php"><i class="material-icons">group</i>Departments</a></li>
     <li><a class="waves-effect" href="leave_app_admin.php"><i class="material-icons">book</i>Leave Applications</a></li>
+    <li><a class="waves-effect" href="recruit_admin.php"><i class="material-icons">person_pin</i>Recruitment Section</a></li>
+    
   </ul>
   </header>
 
