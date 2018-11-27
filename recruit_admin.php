@@ -2,28 +2,6 @@
 <?php startblock('body') ?>
 <?php
 $message="";
-if(isset($_GET['status'])){
-  $app_id= $_GET['app_id'];
-  $status= $_GET['status'];
-
-  $sqlupdate= "UPDATE job_applications SET application_status='$status' WHERE application_id=$app_id";
-  $result= mysqli_query($conn, $sqlupdate);
-
-  $sql = "SELECT applicant_email FROM jobs_application WHERE application_id=$app_id";
-  $result = mysqli_query($conn, $sql);
-  if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        $email= $row["applicant_email"];
-    }
-  }
-
-  header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/sendmail.php?email='$email'");  
-
-  if($result){
-
-  }
-}
 
 if(isset($_POST['submit'])){
 
@@ -47,13 +25,13 @@ if(isset($_POST['submit'])){
 $sql = "SELECT D.dept_id, D.dept_name FROM department D";
 $result = mysqli_query($conn, $sql);
 
-$sqljob = "SELECT O.job_title, O.job_description,A.application_id, A.applicant_fname, A.applicant_lname, A.applicant_email, A.application_date,A.application_status, D.dept_name FROM jobs_offers O, job_applications A, department D WHERE O.dept_id= D.dept_id AND O.job_id = A.job_id ";
+$sqljob = "SELECT O.job_title, O.job_description,A.application_id, A.applicant_fname, A.applicant_lname, A.applicant_email, A.application_date,A.application_status,A.resume, D.dept_name FROM jobs_offers O, job_applications A, department D WHERE O.dept_id= D.dept_id AND O.job_id = A.job_id ";
 $resultjob= mysqli_query($conn,$sqljob);
 
 ?>
 <main>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container" id="add_emp_container">
+  <div class="section no-pad-bot" id="index-banner" style="padding-bottom: 50px;">
+    <div class="" id="add_emp_container" style="padding: 50px;">
       <div class="container">
         <h1 class="header center orange-text">New Job Posting<span class="large badge"></span></h1>
       </div>
@@ -101,9 +79,10 @@ $resultjob= mysqli_query($conn,$sqljob);
           <tr>
               <th>Applicant Name</th>
               <th>Job Title</th>
-              <th style="width: 250px;">Job Description</th>
+              <th style="width: 200px;">Job Description</th>
               <th>Applicant Email</th>
               <th>Application Date</th>
+              <th>Resume</th>
               <th>Status</th>
           </tr>
         </thead>
@@ -115,21 +94,22 @@ $resultjob= mysqli_query($conn,$sqljob);
               while($row = mysqli_fetch_assoc($resultjob)) {
           ?>
           <tr>
-          <td><?php echo $row['applicant_fname']." ".$row['applicant_lname'] ?></td>
-          <td><?php echo $row['job_title'] ?></td>
-          <td><?php echo $row['job_description'] ?></td>
-          <td><?php echo $row['applicant_email'] ?></td>
-          <td><?php echo $row['application_date'] ?></td>
+          <td><?php echo $row['applicant_fname']." ".$row['applicant_lname'] ;?></td>
+          <td><?php echo $row['job_title'] ;?></td>
+          <td><?php echo $row['job_description']; ?></td>
+          <td><?php echo $row['applicant_email'] ;?></td>
+          <td><?php echo $row['application_date'] ;?></td>
+          <td><a class="waves-effect waves-light btn green" href="./<?php echo $row['resume'];?>" download><i class="material-icons right">get_app</i>Download</a></td>
           <td>
              <?php if($row['application_status']=='NIL'){ 
                 ?>
-              <a class="waves-effect waves-light btn blue" href="recruit_admin.php?app_id=<?php echo $row['application_id']; ?>&status=Accepted">Accept</a> <a class="waves-effect waves-light btn red" href="recruit_admin.php?app_id=<?php echo $row['application_id']; ?>&status=Rejected">Reject</a>
+              <a class="waves-effect waves-light btn blue" href="schedule_interview_admin.php?app_id=<?php echo $row['application_id']; ?>&status=Accepted">Accept</a> <a class="waves-effect waves-light btn red" href="schedule_interview_admin.php?app_id=<?php echo $row['application_id']; ?>&status=Rejected">Reject</a>
               <?php
                 }
               ?>
               <?php if($row['application_status']=='Accepted'){ 
                 ?>
-              <a class="waves-effect waves-light btn blue">Interview </a>
+              <a class="waves-effect waves-light btn blue">Interview</a>
               <?php
                 }
               ?>

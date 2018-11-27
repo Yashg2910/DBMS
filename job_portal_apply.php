@@ -26,14 +26,36 @@ if(isset($_POST['submit'])){
   $lname= $_POST['app_lname'];
   $email= $_POST['app_email'];
   $dateofapp = $_POST['app_date'];
-  $department_id= $_POST['dept_id'];
-  $job_description= $_POST['job_description'];
+  $targetfolder = "documents/";
+
+  $targetfolder = $targetfolder . basename( $_FILES['file']['name']) ;
+
+  $ok=1;
+
+  $file_type=$_FILES['file']['type'];
+
+
+  $resumeurl=$targetfolder;
+
+  if ($file_type=="application/pdf" || $file_type=="image/gif" || $file_type=="image/jpeg") {
+   if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfolder))
+   {
+   echo "The file ". basename( $_FILES['file']['name']). " is uploaded";
+   }
+   else {
+   echo "Problem uploading file";
+   }
+  }
+  else {
+   echo "You may only upload PDFs, JPEGs or GIF files.<br>";
+  }
+
 
   //$job_title="Finance Employee";
   //$department_id="3";
   //$job_description="Finance Intern. Staring salary 10000/month";
 
-  $sql = "INSERT INTO job_applications(application_id, job_id, applicant_fname, applicant_lname, applicant_email, application_date) VALUES ('','$jobid','$fname','$lname','$email','$dateofapp')";
+  $sql = "INSERT INTO job_applications(application_id, job_id, applicant_fname, applicant_lname, applicant_email, application_date, resume) VALUES ('','$jobid','$fname','$lname','$email','$dateofapp','$resumeurl')";
   $result = mysqli_query($conn, $sql);
 
   if($result){
@@ -79,7 +101,7 @@ if(isset($_POST['submit'])){
         </ul>
       </div>
       <div class="row">
-        <form class="col s12" action="job_portal_apply.php" method="post">
+        <form class="col s12" action="job_portal_apply.php" method="post" enctype="multipart/form-data">
           <div class="row">
             <div class="input-field col s6">
               <input id="first_name" type="text" class="validate" name="app_fname">
@@ -92,8 +114,8 @@ if(isset($_POST['submit'])){
           </div>
           <div class="row">
             <div class="input-field col m6 s12">
-              <input type="text"  name="app_date" value="<?php echo date("Y-m-d"); ?>" >
-              <label for="dob">Date of Birth</label>
+              <input type="text"  name="app_date" value="<?php echo date("Y-m-d"); ?>" readonly>
+              <label for="dob">Date of application</label>
             </div>
           </div>
           <div class="row">
@@ -114,6 +136,15 @@ if(isset($_POST['submit'])){
             </div>
           </div>-->
           <input type="" name="job_id" value="<?php echo $jobid; ?>" hidden>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Browse</span>
+              <input type="file" name="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
           <button class="center btn waves-effect waves-light" type="submit" name="submit">Submit
             <i class="material-icons right">send</i>
           </button>

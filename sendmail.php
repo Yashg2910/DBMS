@@ -1,45 +1,52 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+  header("Location: http://localhost/Project/recruit_admin.php");
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
 
-$email= $_GET['email'];
+  require 'PHPMailer/src/Exception.php';
+  require 'PHPMailer/src/PHPMailer.php';
+  require 'PHPMailer/src/SMTP.php';
 
-$mail = new PHPMailer(true);
-try {
-    //Server settings
-    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
-    $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'yashguptaspark@gmail.com';                 // SMTP username
-    $mail->Password = 'sssya2998';                           // SMTP password
-    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 587;                                    // TCP port to connect to
+  if(isset($_POST['submit'])){
+  $date= $_POST['int_date'];
+  $time= $_POST['int_time'];
+  $fname= $_POST['fname'];
+  $lname= $_POST['lname'];
+  $email= $_POST['email'];
+  $job_title= $_POST['job_title'];
 
-    //Recipients
-    $mail->setFrom('yash@example.com', 'Manager at HRMS');
-    $mail->addAddress('yashg2910@outlook.com', 'Yash Gupta');     // Add a recipient
-    // Name is optional
-    $mail->addReplyTo('info@example.com', 'Information');
-    $mail->addCC('cc@example.com');
-    $mail->addBCC('bcc@example.com');
+  $msg= "Hello $fname $lname.<br>Congratulations, your job application has been accpeted. You are invited for interview round.<br>Job Title: $job_title<br> Date: $date<br>Time: $time <br> All The Best. -HR";
+  }
+  $mail = new PHPMailer(true);
+  try {
+      //Server settings
+      $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+      $mail->isSMTP();                                      // Set mailer to use SMTP
+      $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+      $mail->SMTPAuth = true;                               // Enable SMTP authentication
+      $mail->Username = 'yashguptaspark@gmail.com';                 // SMTP username
+      $mail->Password = 'sssya2998';                           // SMTP password
+      $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+      $mail->Port = 587;                                    // TCP port to connect to
 
-    //Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'Send to aditya yadav. Testing';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+      //Recipients
+      $mail->setFrom('yash@example.com', 'Manager at HRMS');
+      $mail->addAddress($email, $fname);     // Add a recipient
+      // Name is optional
+      $mail->addReplyTo('info@example.com', 'Information');
 
-    $mail->send();
-  
-} catch (Exception $e) {
-    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-}
+      //Content
+      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = 'Interview Schedule';
+      $mail->Body    = $msg;
+      $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
- header("location:http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/recruit_admin.php");
+      $mail->send();
+    
+  } catch (Exception $e) {
+      echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+  }
+
 ?>

@@ -2,8 +2,18 @@
 <?php startblock('body') ?>
 <?php
 
+if(isset($_GET['department_id'])){
 $departmentid=$_GET['department_id'];
+}
 
+if(isset($_POST['remove_emp'])){
+
+  $eid = $_POST['e_id'];
+
+  $sqldelete= "DELETE FROM employee WHERE e_id = $eid";
+  $result= mysqli_query($conn,$sqldelete);
+
+}
 $sql = "SELECT E.e_id, E.e_fname, E.designation, E.e_lname, D.dept_name          
 FROM employee E, department D
 WHERE E.dept_id = '$departmentid' AND D.dept_id = '$departmentid'";
@@ -36,10 +46,13 @@ $department = $row["dept_name"];
         ?>
         <li class="collection-item avatar">
           <img src="images/yash.jpg" alt="" class="circle">
-          <span class="title"><b><a href="profileinfo.php?eid=<?php echo $row["e_id"]; ?>"><?php echo $row["e_fname"]; ?></a></b></span>
+          <span class="title"><b><a href="profileinfo_admin.php?eid=<?php echo $row["e_id"]; ?>"><?php echo $row["e_fname"]; ?></a></b></span>
           <p><?php echo $row["designation"]; ?><br>
           </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+          <form action="departmentinfo_admin.php?department_id=<?php echo $departmentid ?>" method="post">
+          <input type="" name="e_id" value="<?php echo $row['e_id'] ?>" hidden>
+          <button type="submit" name="remove_emp" class="waves-effect waves-light btn red secondary-content">Remove Employee</a>
+          </form>
         </li>
         <?php
           }

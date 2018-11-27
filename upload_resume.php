@@ -5,8 +5,10 @@
  $targetfolder = $targetfolder . basename( $_FILES['file']['name']) ;
 
  $ok=1;
-
+ 
 $file_type=$_FILES['file']['type'];
+
+$resumeurl=$targetfolder.$file_type;
 
 if ($file_type=="application/pdf" || $file_type=="image/gif" || $file_type=="image/jpeg") {
 
