@@ -54,17 +54,21 @@ break;
 
   <!-- CSS  -->
   <link href="css/login.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="fullscreen_bg" class="fullscreen_bg"/>
 
-<div class="container">
+<div class="container" style="margin-left: 0px !important; margin-top: 200px; ">
 
+  <h1 style="color: white;margin-left: 100px; font-size: 45px;"><b>HUMAN RESOURCE MANAGEMENT SYSTEM</b></h1>
   <form class="form-signin" action="login.php" method="post">
     <h1>
     <h1 class="form-signin-heading">Sign In</h1>
     <input type="email" class="form-control" placeholder="Email address" required="" autofocus="" name="username">
+    <br>
     <input type="password" class="form-control" placeholder="password" required="" name="password">
     <p><select name="role">
     <option>--Select role--</option>
